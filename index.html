@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hello Anjamais Falling</title>
+<link href="https://fonts.googleapis.com/css2?family=Handjet&display=swap" rel="stylesheet">
+<style>
+body {
+  margin:0;
+  width:100vw;
+  height:100vh;
+  background:white;
+  overflow:hidden;
+  font-family:"Handjet", cursive;
+  position:relative;
+}
+
+.phrase {
+  position:absolute;
+  font-size:16px;
+  cursor:pointer;
+  user-select:none;
+  white-space:nowrap;
+}
+
+.letter {
+  display:inline-block;
+  position:relative;
+  transition: transform 0s;
+}
+</style>
+</head>
+<body>
+
+<script>
+for(let i=0;i<26;i++){
+  const div = document.createElement("div");
+  div.className = "phrase";
+
+  // случайное положение фразы
+  div.style.left = Math.random()*(window.innerWidth-200)+"px";
+  div.style.top = Math.random()*(window.innerHeight-50)+"px";
+
+  document.body.appendChild(div);
+
+  const text = "hello anjamais";
+  const letters = [];
+
+  // создаём span для каждой буквы
+  for(const ch of text){
+    const span = document.createElement("span");
+    span.textContent = ch;
+    span.className = "letter";
+    div.appendChild(span);
+    letters.push(span);
+  }
+
+  // при наведении
+  div.addEventListener("mouseenter", ()=>{
+    letters.forEach(span=>{
+      const x = (Math.random()-0.5)*100;   // разброс по X
+      const y = Math.random()*200 + 50;    // падение вниз
+      const r = (Math.random()-0.5)*720;   // вращение
+      const duration = Math.random()*0.5 + 1.5; // разная скорость
+      span.style.transition = `transform ${duration}s cubic-bezier(0.3,0.7,0.4,1)`;
+      span.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg)`;
+    });
+
+    // возвращение через 8 секунд
+    setTimeout(()=>{
+      letters.forEach(span=>{
+        span.style.transition = "transform 1s ease";
+        span.style.transform = "translate(0,0) rotate(0deg)";
+      });
+    },8000);
+  });
+}
+</script>
+
+</body>
+</html>
