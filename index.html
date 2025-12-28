@@ -37,7 +37,6 @@ for(let i=0;i<26;i++){
   const div = document.createElement("div");
   div.className = "phrase";
 
-  // случайное положение фразы
   div.style.left = Math.random()*(window.innerWidth-200)+"px";
   div.style.top = Math.random()*(window.innerHeight-50)+"px";
 
@@ -46,7 +45,6 @@ for(let i=0;i<26;i++){
   const text = "hello anjamais";
   const letters = [];
 
-  // создаём span для каждой буквы
   for(const ch of text){
     const span = document.createElement("span");
     span.textContent = ch;
@@ -55,18 +53,17 @@ for(let i=0;i<26;i++){
     letters.push(span);
   }
 
-  // при наведении
   div.addEventListener("mouseenter", ()=>{
     letters.forEach(span=>{
-      const x = (Math.random()-0.5)*100;   // разброс по X
-      const y = Math.random()*200 + 50;    // падение вниз
-      const r = (Math.random()-0.5)*720;   // вращение
-      const duration = Math.random()*0.5 + 1.5; // разная скорость
+      const x = (Math.random()-0.5)*100;   
+      const y = Math.random()*200 + 50;   
+      const r = (Math.random()-0.5)*720;   
+      const duration = Math.random()*0.5 + 1.5; 
       span.style.transition = `transform ${duration}s cubic-bezier(0.3,0.7,0.4,1)`;
       span.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg)`;
     });
 
-    // возвращение через 8 секунд
+    
     setTimeout(()=>{
       letters.forEach(span=>{
         span.style.transition = "transform 1s ease";
